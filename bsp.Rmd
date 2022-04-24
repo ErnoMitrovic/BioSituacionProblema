@@ -36,13 +36,37 @@ names(variants) <- c("alpha", "beta", "epsilon", "eta", "gamma", "iota", "kappa"
 2. Calcula la longitud de las secuencias de cada variante.
 ```{r}
 lengthVars <- c()
-for(i in 1:length(variants)){
+for(i in names(variants)){
   lengthVars[i] <- length(variants[i][[1]])
   rm(i)
 }
 names(lengthVars) <- names(variants)
 ```
 3. Crea una gráfica donde compares las bases de ADN que componen a cada una de las variantes del virus.
+```{r}
+
+```
 4. ¿Cuál es el %GC de cada variante?
+```{r}
+percentageGC <- function(chain){
+  bases <- c("g", "c")
+  percentages <- numeric(2)
+  for (el in chain) {
+    for (i in 1:2){
+      if (el == bases[i]) percentages[i] <- percentages[i] + 1
+    }
+  }
+  return((percentages[1] + percentages[2])/length(chain))
+}
+GCperc <- c()
+for(i in names(variants)){
+  GCperc <- c(GCperc, percentageGC(variants[i][[1]]))
+}
+```
+
 5. Crea las secuencias contrasentido de cada variante.
+```{r}
+
+```
+
 6. Agrega una interpretación escrita de las gráficas que integras.
