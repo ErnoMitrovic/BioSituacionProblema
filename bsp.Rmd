@@ -48,13 +48,6 @@ data <- c()
 for(i in names(variants))
   data <- c(data, table(variants[i][[1]]))
 
-dataNames <- c()
-for (i in 1:length(variants)){
-  for(base in c("A", "C", "G", "T")){
-    dataNames <- c(dataNames, base)
-  }
-}
-names(data) <- dataNames
 barplot(data, 
         col=c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)),
         main="")
@@ -66,26 +59,16 @@ legend("topleft", legend = c("A","C","G", "T") ,
 ```
 4. ¿Cuál es el %GC de cada variante?
 ```{r}
-percentageGC <- function(chain){
-  bases <- c("g", "c")
-  percentages <- numeric(2)
-  for (el in chain) {
-    for (i in 1:2){
-      if (el == bases[i]) percentages[i] <- percentages[i] + 1
-    }
-  }
-  return((percentages[1] + percentages[2])/length(chain))
-}
 GCperc <- c()
 for(i in names(variants)){
-  GCperc <- c(GCperc, percentageGC(variants[i][[1]]))
+  GCperc <- c(GCperc, GC(variants[i][[1]]))
 }
 names(GCperc) <- names(variants)
 ```
 
 5. Crea las secuencias contrasentido de cada variante.
 ```{r}
-
+# Usar la funcion comp()
 ```
 
 6. Agrega una interpretación escrita de las gráficas que integras.
