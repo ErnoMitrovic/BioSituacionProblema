@@ -11,3 +11,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Incluir reporte aquí
 
+1. Obtén las secuencias de las variantes de SARS-CoV-2 desde el NCBI o el buscador de virus del NCBI.
+```{r}
+
+```
+2. Calcula la longitud de las secuencias de cada variante.
+3. Crea una gráfica donde compares las bases de ADN que componen a cada una de las variantes del virus.
+4. ¿Cuál es el %GC de cada variante?
+5. Crea las secuencias contrasentido de cada variante.
+6. Agrega una interpretación escrita de las gráficas que integras.
