@@ -44,7 +44,25 @@ names(lengthVars) <- names(variants)
 ```
 3. Crea una gráfica donde compares las bases de ADN que componen a cada una de las variantes del virus.
 ```{r}
+data <- c()
+for(i in names(variants))
+  data <- c(data, table(variants[i][[1]]))
 
+dataNames <- c()
+for (i in 1:length(variants)){
+  for(base in c("A", "C", "G", "T")){
+    dataNames <- c(dataNames, base)
+  }
+}
+names(data) <- dataNames
+barplot(data, 
+        col=c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)),
+        main="")
+
+abline(v=c(4.9, 9.7, 14.5, 19.4, 24.2, 29, 33.8, 38.6, 43.4), col="red")
+
+legend("topleft", legend = c("A","C","G", "T") , 
+     col = c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)), pch=20 , pt.cex = 2, cex = 0.8, horiz = FALSE, inset = c(0.05, 0.05))
 ```
 4. ¿Cuál es el %GC de cada variante?
 ```{r}
@@ -62,6 +80,7 @@ GCperc <- c()
 for(i in names(variants)){
   GCperc <- c(GCperc, percentageGC(variants[i][[1]]))
 }
+names(GCperc) <- names(variants)
 ```
 
 5. Crea las secuencias contrasentido de cada variante.
