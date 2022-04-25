@@ -1,6 +1,12 @@
 ---
 title: "Situación problema"
-author: "Ernesto Miranda"
+author: 
+  - Alejandro Sánchez A01662783
+  - Daniel Rong A01656992
+  - Ernesto Miranda A01656828
+  - José Aram Méndez A01657142
+  - Juan Antonio Mancera A01662634
+  - Lisa Valeria Rodríguez A01656306
 date: "`r Sys.Date()`"
 output: html_document
 ---
