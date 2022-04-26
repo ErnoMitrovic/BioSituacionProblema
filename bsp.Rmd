@@ -50,18 +50,23 @@ names(lengthVars) <- names(variants)
 ```
 3. Crea una gráfica donde compares las bases de ADN que componen a cada una de las variantes del virus.
 ```{r}
-data <- c()
-for(i in names(variants))
-  data <- c(data, table(variants[i][[1]]))
+countBase <- function(chain, base) {
+  cont <- 0
+  for(el in chain){
+    if(el == base) cont <- cont + 1
+  }
+  return(cont)
+}
 
-barplot(data, 
-        col=c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)),
-        main="")
+Ac <- sapply(variants, countBase, base = "a")
+Cc <- sapply(variants, countBase, base = "c")
+Gc <- sapply(variants, countBase, base = "g")
+Tc <- sapply(variants, countBase, base = "t")
 
-abline(v=c(4.9, 9.7, 14.5, 19.4, 24.2, 29, 33.8, 38.6, 43.4), col="red")
+barplot(matrix(c(Ac, Cc, Gc, Tc), nrow = 4, byrow = TRUE), beside = TRUE, col=c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)), las =2, names.arg= names(variants))
+legend("topleft",legend = c("A","C","G", "T") , 
+     col = c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)), pch = 15 , pt.cex = 2, cex = 0.8, inset = c(0.05, 0.05))
 
-legend("topleft", legend = c("A","C","G", "T") , 
-     col = c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)), pch=20 , pt.cex = 2, cex = 0.8, horiz = FALSE, inset = c(0.05, 0.05))
 ```
 4. ¿Cuál es el %GC de cada variante?
 ```{r}
@@ -74,7 +79,11 @@ names(GCperc) <- names(variants)
 
 5. Crea las secuencias contrasentido de cada variante.
 ```{r}
-# Usar la funcion comp()
+contra <- c()
+for(i in names(variants)){
+  contra <- c(contra, paste(comp(variants[i][[1]]), collapse = ''))
+}
+names(contra) <- names(variants)
 ```
 
 6. Agrega una interpretación escrita de las gráficas que integras.
