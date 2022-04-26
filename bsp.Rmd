@@ -15,8 +15,26 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Incluir reporte aquí
+<center>
+![Logo Tec](./img/logoTec.png)
+**Analisis de biologia computacional**
+# BT1013.324  
+## Evidencia 1 | Análisis inicial  
+## Equipo 2
+**Profesores: **  
+Dra Laura Gómez  
+Dr. Hugo Tovar  
+Febrero – Junio  
+Fecha de entrega: 26/04/2022  
+</center>
 
+**1. ¿Cuál es la situación actuals de COVID-19 a nivel mundial, en México, en tu estado de origen y en tu municipio, alcaldía o colonia? **
+La situación actual de COVID-19 poco a poco presenta un menor riesgo en el mundo, gracias a la aplicación de las diferentes dosis de vacunación. Lo cual implica cada vez  un menor número de contagios y por ende un menor número de defunciones. A pesar de esta evidente mejora, los contagios siguen aún sin detenerse. Un claro ejemplo es el continente Europeo, el cual sigue manteniéndose como el continente con más casos reportados al día de hoy y de igual forma Estados Unidos como uno de los países con mayor número de contagios.  
+Enfocándonos en la situación actual de nuestro país y gracias a los datos obtenidos en los últimos 14 días por el gobierno Mexicano, podemos observar la mejoría en la situación ante la pandemia por COVID-19, teniendo solamente 11,806 nuevos casos reportados en todo el país.  
+Por su parte la Ciudad de México, al ser uno de los estados con mayor número de habitantes también se mantiene como el segundo estado de la república con el mayor número de contagios en los últimos 14 días, pero manteniendo un margen de aproximadamente 200 casos por día.  
+En cuanto a la distribución de contagios por alcaldía, podemos ver que tanto la alcaldía Iztapalapa y la alcaldía Tlalpan poseen el mayor número de casos reportados tanto de contagios como de muertes. A pesar de todo esto, se puede concluir que la tendencia actual de la pandemia se encuentra en decrecimiento.  
+**2. ¿Cuál fue la primera variante del virus que se propagó a todo el mundo?**
+La variante de SARS-CoV-2 B. 1.1.7, también conocida como variante alfa, fue identificada por primera vez en Reino Unido en septiembre del 2020. Para el mes de Diciembre aumentaron las infecciones por esta variante, poco después se vieron más casos alrededor del mundo. En enero de 2021, en Estados Unidos se estableció como la variante más predominante. La variante alfa porta una mutación en la proteína S que afecta la conformación del dominio de unión al receptor, posee una mutación la cual es la eliminación en las posiciones 69 y 70, la cual le da la carácter de mayor transmisibilidad. Esta variante perdió relevancia con el surgimiento de la variante Delta, la cual era más agresiva. {Galloway, 2021}
 
 ```{r, include = FALSE}
 # Agrega el working directory
@@ -28,16 +46,16 @@ setwd("G:\\Mi unidad\\ESCUELA\\Profesional\\2 Semestre\\Biologia_Computacional\\
 # Utiliza el paquete seqinr
 library(seqinr)
 variants <- c(
-  "alpha" = read.fasta("./fasta/alpha.fasta"),
-  "beta" = read.fasta("./fasta/beta.fasta"),
-  "epsilon" = read.fasta("./fasta/epsilon.fasta"),
-  "eta" = read.fasta("./fasta/eta.fasta"),
-  "gamma" = read.fasta("./fasta/gamma.fasta"),
-  "iota" = read.fasta("./fasta/iota.fasta"),
-  "kappa" = read.fasta("./fasta/kappa.fasta"),
-  "mu" = read.fasta("./fasta/mu.fasta"),
-  "omicron" = read.fasta("./fasta/omicron.fasta"),
-  "zeta" = read.fasta("./fasta/zeta.fasta")
+  alpha = read.fasta("./fasta/alpha.fasta"),
+  beta = read.fasta("./fasta/beta.fasta"),
+  epsilon = read.fasta("./fasta/epsilon.fasta"),
+  eta = read.fasta("./fasta/eta.fasta"),
+  gamma = read.fasta("./fasta/gamma.fasta"),
+  iota = read.fasta("./fasta/iota.fasta"),
+  kappa = read.fasta("./fasta/kappa.fasta"),
+  mu = read.fasta("./fasta/mu.fasta"),
+  omicron = read.fasta("./fasta/omicron.fasta"),
+  zeta = read.fasta("./fasta/zeta.fasta")
   )
 names(variants) <- c("alpha", "beta", "epsilon", "eta", "gamma", "iota", "kappa", "mu", "omicron", "zeta")
 ```
@@ -68,9 +86,12 @@ bases <- function(chains){
 
 B <- bases(variants)
 
-barplot(matrix(c(B$a, B$c, B$g, B$t), nrow = 4, byrow = TRUE), beside = TRUE, col=c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)), las =2, names.arg= names(variants))
-legend("topleft",legend = c("A","C","G", "T") , 
-     col = c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)),  pt.cex = 0.8, pch = 15 , cex = 0.5)
+colors <- c("pink", "blue", "purple", "cyan", "magenta", "gray", "red", "black", "green", "orange")
+
+par(mar = c(5,4,4,8), xpd = T)
+barplot(matrix(c(B$a, B$c, B$g, B$t), nrow = 10), beside = TRUE, col = colors, las =2, names.arg = c("A", "C", "G", "T"))
+legend("topright",legend = names(variants) , col = colors,  pt.cex = 1, pch = 15 , cex = 1, inset = c(-0.2,0))
+rm(colors)
 
 ```
 4. ¿Cuál es el %GC de cada variante?
