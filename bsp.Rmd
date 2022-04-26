@@ -29,7 +29,8 @@ Fecha de entrega: 26/04/2022
 </center>
 
 **1. ¿Cuál es la situación actuals de COVID-19 a nivel mundial, en México, en tu estado de origen y en tu municipio, alcaldía o colonia? **
-La situación actual de COVID-19 poco a poco presenta un menor riesgo en el mundo, gracias a la aplicación de las diferentes dosis de vacunación. Lo cual implica cada vez  un menor número de contagios y por ende un menor número de defunciones. A pesar de esta evidente mejora, los contagios siguen aún sin detenerse. Un claro ejemplo es el continente Europeo, el cual sigue manteniéndose como el continente con más casos reportados al día de hoy y de igual forma Estados Unidos como uno de los países con mayor número de contagios.  
+Gracias a la aplicación de las diferentes vacunas, el SARS COV 2 ha bajado su nivel de alarma en el mundo. A pesar de esta evidente mejora, los contagios siguen aún sin detenerse. Un claro ejemplo es el continente Europeo, el cual sigue manteniéndose como el continente con más casos reportados al día de hoy y de igual forma Estados Unidos como uno de los países con mayor número de contagios.  
+![Mapa mundial](./img/worldMap.png)  
 Enfocándonos en la situación actual de nuestro país y gracias a los datos obtenidos en los últimos 14 días por el gobierno Mexicano, podemos observar la mejoría en la situación ante la pandemia por COVID-19, teniendo solamente 11,806 nuevos casos reportados en todo el país.  
 Por su parte la Ciudad de México, al ser uno de los estados con mayor número de habitantes también se mantiene como el segundo estado de la república con el mayor número de contagios en los últimos 14 días, pero manteniendo un margen de aproximadamente 200 casos por día.  
 En cuanto a la distribución de contagios por alcaldía, podemos ver que tanto la alcaldía Iztapalapa y la alcaldía Tlalpan poseen el mayor número de casos reportados tanto de contagios como de muertes. A pesar de todo esto, se puede concluir que la tendencia actual de la pandemia se encuentra en decrecimiento.  
@@ -89,7 +90,7 @@ B <- bases(variants)
 colors <- c("pink", "blue", "purple", "cyan", "magenta", "gray", "red", "black", "green", "orange")
 
 par(mar = c(5,4,4,8), xpd = T)
-barplot(matrix(c(B$a, B$c, B$g, B$t), nrow = 10), beside = TRUE, col = colors, las =2, names.arg = c("A", "C", "G", "T"))
+barplot(matrix(c(B$a, B$c, B$g, B$t), nrow = 10), beside = TRUE, col = colors, las =2, names.arg = c("A", "C", "G", "T"), ylab = "Frecuencia", xlab = "Bases")
 legend("topright",legend = names(variants) , col = colors,  pt.cex = 1, pch = 15 , cex = 1, inset = c(-0.2,0))
 rm(colors)
 
@@ -106,11 +107,11 @@ names(GCperc) <- names(variants)
 
 5. Crea las secuencias contrasentido de cada variante.
 ```{r}
-contra <- c()
-for(i in names(variants)){
-  contra <- c(contra, paste(comp(variants[i][[1]]), collapse = ''))
+inv <- function(chain){
+  return(chain[length(chain):1])
 }
-rm(i)
+
+contra <- lapply(variants, inv)
 names(contra) <- names(variants)
 ```
 
