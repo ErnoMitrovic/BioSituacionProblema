@@ -16,6 +16,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Incluir reporte aquí
+
+
 ```{r, include = FALSE}
 # Agrega el working directory
 setwd("G:\\Mi unidad\\ESCUELA\\Profesional\\2 Semestre\\Biologia_Computacional\\SituacionProblema\\codigo")
@@ -50,20 +52,23 @@ names(lengthVars) <- names(variants)
 ```
 3. Crea una gráfica donde compares las bases de ADN que componen a cada una de las variantes del virus.
 ```{r}
-countBase <- function(chain, base) {
-  cont <- 0
-  for(el in chain){
-    if(el == base) cont <- cont + 1
+bases <- function(chains){
+  comps <- lapply(chains, table)
+  b <- c()
+  for(el in comps){
+    b <- c(b,as.numeric(el))
   }
-  return(cont)
+  return(list(
+    a = b[seq(from = 1, to = length(b), by = 4)],
+    c = b[seq(from = 2, to = length(b), by = 4)],
+    g = b[seq(from = 3, to = length(b), by = 4)],
+    t = b[seq(from = 4, to = length(b), by = 4)]
+  ))
 }
 
-Ac <- sapply(variants, countBase, base = "a")
-Cc <- sapply(variants, countBase, base = "c")
-Gc <- sapply(variants, countBase, base = "g")
-Tc <- sapply(variants, countBase, base = "t")
+B <- bases(variants)
 
-barplot(matrix(c(Ac, Cc, Gc, Tc), nrow = 4, byrow = TRUE), beside = TRUE, col=c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)), las =2, names.arg= names(variants))
+barplot(matrix(c(B$a, B$c, B$g, B$t), nrow = 4, byrow = TRUE), beside = TRUE, col=c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)), las =2, names.arg= names(variants))
 legend("topleft",legend = c("A","C","G", "T") , 
      col = c(rgb(0.3,0.1,0.4,0.6) , rgb(0.3,0.5,0.4,0.6) , rgb(0.3,0.9,0.4,0.6) ,  rgb(0.15,0.53,0.71,0.6)),  pt.cex = 0.8, pch = 15 , cex = 0.5)
 
@@ -74,6 +79,7 @@ GCperc <- c()
 for(i in names(variants)){
   GCperc <- c(GCperc, GC(variants[i][[1]]))
 }
+rm(i)
 names(GCperc) <- names(variants)
 ```
 
@@ -83,6 +89,7 @@ contra <- c()
 for(i in names(variants)){
   contra <- c(contra, paste(comp(variants[i][[1]]), collapse = ''))
 }
+rm(i)
 names(contra) <- names(variants)
 ```
 
