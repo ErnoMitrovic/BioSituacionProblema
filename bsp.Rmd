@@ -1,12 +1,7 @@
 ---
 title: "Evidencia 1 | Análisis inicial"
 author: 
-  - Alejandro Sánchez A01662783
-  - Daniel Rong A01656992
   - Ernesto Miranda A01656828
-  - José Aram Méndez A01657142
-  - Juan Antonio Mancera A01662634
-  - Lisa Valeria Rodríguez A01656306
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -42,6 +37,7 @@ Febrero – Junio
 
 Fecha de entrega: 26/04/2022  
 </center>
+### Parte 1  
 
 **1. ¿Cuál es la situación actuals de COVID-19 a nivel mundial, en México, en tu estado de origen y en tu municipio, alcaldía o colonia? **
 Gracias a la aplicación de las diferentes vacunas, el SARS COV 2 ha bajado su nivel de alarma en el mundo. A pesar de esta evidente mejora, los contagios siguen aún sin detenerse. Un claro ejemplo es el continente Europeo, el cual sigue manteniéndose como el continente con más casos reportados al día de hoy y de igual forma Estados Unidos como uno de los países con mayor número de contagios.  
@@ -81,6 +77,21 @@ Iniciaría mi búsqueda con artículos de divulgación científica para tener un
 **5. Imagina que te encuentras en una situación similar a la de Li Wenliang, médico chino que intentó alertar sobre el brote de coronavirus en su país, pero fue detenido por las autoridades y obligado a retractarse, ¿qué harías en su caso? Selecciona un inciso y justifica tu elección: a) Lo reportas al centro de investigación o la universidad. b) Lo reportas a la prensa. c) Guardas la información. Elige y justifica tu respuesta.**  
 *a) Lo reportas al centro de investigación o la universidad.*  
 En mi caso personal, considero que es mejor reportarlo al centro de invetigación local o una universidad. De este modo se puede tener un respaldo institucional de las observaciones y posteriormente poner la información al público. Esto porque no todas las enfermedades tienen el mismo nivel de contagio, gravedad o mortalidad. Entonces disruptir el orden público puede ser perjudicial en cualquier contexto. A pesar de que la forma más inmediata es reportarla a la prensa, una universidad y/o centro de investigación puede brindar seguridad y el respaldo necesario para llamar a la alerta local, regional o nacional según sea el caso.  
+
+## Referencias
+Banco Interamericano de Desarrollo. (n.d.). Situación actual de la pandemia | IADB. Www.iadb.org. Retrieved April 24, 2022, from https://www.iadb.org/es/coronavirus/current-situation-pandemic  
+
+CDC. (2022, February 11). Coronavirus Disease 2019 (COVID-19). Centers for Disease Control and Prevention. https://www.cdc.gov/coronavirus/2019-ncov/variants/variant-classifications.html  
+
+Dirección General de Epidemiología. (2022, April 21). COVID-19 Tablero CDMX. Geoint COVID - 19 Tablero CDMX. https://cdmx.dash.covid19.geoint.mx/  
+
+Galloway, S. E., Paul, P., MacCannell, D. R., Johansson, M. A., Brooks, J. T., MacNeil, A., Slayton, R. B., Tong, S., Silk, B. J., Armstrong, G. L., Biggerstaff, M., & Dugan, V. G. (2021). Emergence of SARS-CoV-2 B.1.1.7 Lineage - United States, December 29, 2020-January 12, 2021. MMWR. Morbidity and mortality weekly report, 70(3), 95–99. https://doi.org/10.15585/mmwr.mm7003e2  
+
+John Hopkins University. (2021). Johns Hopkins Coronavirus Resource Center. Johns Hopkins Coronavirus Resource Center; Johns Hopkins University & Medicine. https://coronavirus.jhu.edu/map.html  
+
+OMS. (n.d.). Seguimiento de las variantes del SARS-CoV-2. Www.who.int. https://www.who.int/es/activities/tracking-SARS-CoV-2-variants  
+
+Universidad Johns Hopkins, Our World in Data, & Google COVID-19 Community Mobility Reports. (n.d.). Coronavirus (COVID-19) - Google Noticias. Google Noticias. Retrieved April 24, 2022, from https://news.google.com/covid19/map?hl=es-419&mid=%2Fm%2F04sqj&gl=US&ceid=US%3Aes-419  
 
 ### PARTE 2  
 **Realiza lo siguiente en un script de R y código:**
