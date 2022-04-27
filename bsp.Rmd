@@ -17,14 +17,32 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <center>
 ![Logo Tec](./img/logoTec.png)
+
+
 **Analisis de biologia computacional**
-# BT1013.324  
-## Evidencia 1 | Análisis inicial  
+
+
+# BT1013.324
+
+
+## Evidencia 1 | Análisis inicial
+
+
 ## Equipo 2
+
+
 **Profesores: **  
+
+
 Dra Laura Gómez  
+
+
 Dr. Hugo Tovar  
+
+
 Febrero – Junio  
+
+
 Fecha de entrega: 26/04/2022  
 </center>
 
@@ -46,7 +64,7 @@ setwd("G:\\Mi unidad\\ESCUELA\\Profesional\\2 Semestre\\Biologia_Computacional\\
 ```{r}
 # Utiliza el paquete seqinr
 library(seqinr)
-variants <- c(
+variants <- list(
   alpha = read.fasta("./fasta/alpha.fasta"),
   beta = read.fasta("./fasta/beta.fasta"),
   epsilon = read.fasta("./fasta/epsilon.fasta"),
@@ -62,12 +80,10 @@ names(variants) <- c("alpha", "beta", "epsilon", "eta", "gamma", "iota", "kappa"
 ```
 2. Calcula la longitud de las secuencias de cada variante.
 ```{r}
-lengthVars <- c()
-for(i in names(variants)){
-  lengthVars[i] <- length(variants[i][[1]])
-  rm(i)
-}
+lengthVars <- lapply(variants, length)
+
 names(lengthVars) <- names(variants)
+print(lengthVars)
 ```
 3. Crea una gráfica donde compares las bases de ADN que componen a cada una de las variantes del virus.
 ```{r}
@@ -98,21 +114,24 @@ rm(colors)
 4. ¿Cuál es el %GC de cada variante?
 ```{r}
 GCperc <- c()
-for(i in names(variants)){
-  GCperc <- c(GCperc, GC(variants[i][[1]]))
+for(el in variants){
+  GCperc <- c(GCperc, GC(el[[1]]))
 }
-rm(i)
+rm(el)
 names(GCperc) <- names(variants)
+print(GCperc)
 ```
 
 5. Crea las secuencias contrasentido de cada variante.
 ```{r}
 inv <- function(chain){
-  return(chain[length(chain):1])
+  C <- as.character(chain[[1]])
+  return(C[length(C): 1])
 }
 
 contra <- lapply(variants, inv)
 names(contra) <- names(variants)
+print(contra)
 ```
 
 6. Agrega una interpretación escrita de las gráficas que integras.
