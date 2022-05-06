@@ -6,13 +6,8 @@ output: html_document
 ---
 
 # Video parte 1
-<div>
-  <p style = 'text-align:center;'>
-  <iframe width="600" height = "420"
-  src="https://youtu.be/q_kW9PCZdMA">
-  </iframe>
-</div>
-</p>
+
+src="https://youtu.be/q_kW9PCZdMA"
 
 ```{r setup, include=FALSE}
 rm(list = ls())
