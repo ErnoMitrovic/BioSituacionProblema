@@ -9,3 +9,63 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Utilización de las librerías:
+```{r libraries, message = F}
+library(Biostrings)
+library(seqinr)
+library(adegenet)
+library(ape)
+library(ggtree)
+library(DECIPHER)
+library(viridis)
+library(ggplot2)
+library(colormap)
+```
+
+
+Primero recopilaré los códigos de acceso para las especies a estudiar. El código de acceso son los Locus en NCBI. 
+```{r locus}
+speciesLocus <- c(human = "KU291448", bat = "EF065511", duck = "JF705860", pheasant = "MK423876", 
+                  hedgehog = "MK907287", civet = "AY572038", hermaphroditus = "AY613948",
+                  paguma = "AY515512", rhinolopus = "KY417150", dog = "ON248600",
+                  pangolin = "MW532698", porcine = "KX981440", sparrow = "NC_016992",
+                  beaudette = "AJ311317", bovine = "NC_003045", murine = "NC_001846",
+                  gorilla = "OL752443", gastroenteritis = "KX499468", wigeon = "NC_016995",
+                  whiteEye = "JQ065044")
+if(!file.exists("./fastas/virus_sequences.fasta")){
+  virus.seq = read.GenBank(speciesLocus)
+  write.dna(virus.seq,
+            "./fastas/virus_sequences.fasta",
+            format = "fasta",
+            colsep = ""
+  )
+}
+```
+Después se hace el cálculo de la longitud de cada secuencia. En este punto no están alineadas.
+```{r len}
+not_aligned <- readDNAStringSet("./fastas/virus_sequences.fasta") 
+lapply(not_aligned, length)
+```
+Es momento de crear la gráfica para comparar el número de bases de cada secuencia no alineada. Para fines prácticos, se utilizarán los nombres de las secuencias.
+```{r}
+bases <- lapply(not_aligned, tolower)
+bases <- lapply(bases, s2c)
+bases <- lapply(bases, count, wordsize = 1)
+b <- c()
+for(el in bases){
+  b <- c(b, as.numeric(el))
+}
+B <- list(
+  a = b[seq(from = 1, to = length(b), by = 4)],
+  c = b[seq(from = 2, to = length(b), by = 4)],
+  g = b[seq(from = 3, to = length(b), by = 4)],
+  t = b[seq(from = 4, to = length(b), by = 4)]
+)
+
+par(mar = c(5,4,4,8), xpd = T)
+colors = colormap(nshades = 20)
+barplot(matrix(c(B$a, B$c, B$g, B$t), nrow = 20), beside = TRUE, col = colors, las =2, names.arg = c("A", "C", "G", "T"), ylab = "Frecuencia", xlab = "Bases", main = "Bases nitrogenadas de secuencias")
+legend("topright",legend = names(speciesLocus) , col = colors,  pt.cex = 1, pch = 15 , cex = 1, inset = c(-0.3,-0.2))
+```
+
+
