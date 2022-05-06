@@ -6,6 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -18,32 +19,34 @@ library(ape)
 library(ggtree)
 library(DECIPHER)
 library(viridis)
-library(ggplot2)
 library(colormap)
+library(ggmsa)
 ```
 
 
 Primero recopilaré los códigos de acceso para las especies a estudiar. El código de acceso son los Locus en NCBI. 
 ```{r locus}
-speciesLocus <- c(human = "KU291448", bat = "EF065511", duck = "JF705860", pheasant = "MK423876", 
-                  hedgehog = "MK907287", civet = "AY572038", hermaphroditus = "AY613948",
-                  paguma = "AY515512", rhinolopus = "KY417150", dog = "ON248600",
-                  pangolin = "MW532698", porcine = "KX981440", sparrow = "NC_016992",
-                  beaudette = "AJ311317", bovine = "NC_003045", murine = "NC_001846",
-                  gorilla = "OL752443", gastroenteritis = "KX499468", wigeon = "NC_016995",
-                  whiteEye = "JQ065044")
-if(!file.exists("./fastas/virus_sequences.fasta")){
+speciesLocus <- c(humano = "KU291448", murcielago = "EF065511", pato = "JF705860", faisan = "MK423876", 
+                  erizo = "MK907287", civeta = "AY572038", civeta_palmeras = "AY613948",
+                  paguma_larvata = "AY515512", rhinolophus = "KY417150", perro = "ON248600",
+                  pangolin = "MW532698", porcino = "KX981440", gorrión = "NC_016992",
+                  beaudette = "AJ311317", bovino = "NC_003045", murino = "NC_001846",
+                  gorila = "OL752443", gastrointeritis = "KX499468", mareca = "NC_016995",
+                  ojo_blanco = "JQ065044")
+if(!file.exists("virus_sequences.fasta")){
   virus.seq = read.GenBank(speciesLocus)
   write.dna(virus.seq,
-            "./fastas/virus_sequences.fasta",
+            "virus_sequences.fasta",
             format = "fasta",
+            nbcol = 5,
             colsep = ""
   )
+  rm(virus.seq)
 }
 ```
 Después se hace el cálculo de la longitud de cada secuencia. En este punto no están alineadas.
 ```{r len}
-not_aligned <- readDNAStringSet("./fastas/virus_sequences.fasta") 
+not_aligned <- readDNAStringSet("virus_sequences.fasta") 
 lapply(not_aligned, length)
 ```
 Es momento de crear la gráfica para comparar el número de bases de cada secuencia no alineada. Para fines prácticos, se utilizarán los nombres de las secuencias.
@@ -66,6 +69,33 @@ par(mar = c(5,4,4,8), xpd = T)
 colors = colormap(nshades = 20)
 barplot(matrix(c(B$a, B$c, B$g, B$t), nrow = 20), beside = TRUE, col = colors, las =2, names.arg = c("A", "C", "G", "T"), ylab = "Frecuencia", xlab = "Bases", main = "Bases nitrogenadas de secuencias")
 legend("topright",legend = names(speciesLocus) , col = colors,  pt.cex = 1, pch = 15 , cex = 1, inset = c(-0.3,-0.2))
+rm(B, bases, b, colors, el)
 ```
 
+En la siguiente sección se agrega el análisis jerárquico
+
+```{r jerarquico}
+not_aligned <- OrientNucleotides(not_aligned)
+seq.aligned <- AlignSeqs(not_aligned, processors = NULL)
+# Resultado del alineamiento
+BrowseSeqs(seq_aligned, highlight = 0)
+writeXStringSet(seq.aligned, file="aligned_seq.fasta")
+seq.aligned <- read.alignment("virus_seq_align.fasta", format = "fasta")
+matriz_distancia <- dist.alignment(virus_aligned, matrix = "similarity")
+temp <- as.data.frame(as.matrix(matriz_distancia))
+table.paint(temp, cleg=0, clabel.row=.5, clabel.col=.5) + scale_color_viridis()
+
+specs.tree <- nj(matriz_distancia)
+specs.tree <- ladderize(specs.tree)
+plot(specs.tree, cex = 0.6)
+
+
+ggmsa(virus_seq_not_align, 850, 900, color = "Chemistry_AA")
+
+plot.specs <- ggtree(specs.tree ) + geom_tiplab()
+
+data <- tidy_msa(not_aligned, 164, 213)
+plot.specs + geom_facet(geom = geom_msa, data = data,  panel = 'msa', color = "Chemistry_AA") +
+    xlim_tree(1)
+```
 
