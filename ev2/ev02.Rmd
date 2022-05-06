@@ -6,7 +6,13 @@ output: html_document
 ---
 
 # Video parte 1
-![Video Evidencia 2](https://youtu.be/q_kW9PCZdMA){width = 70%}
+<div>
+  <p style = 'text-align:center;'>
+  <iframe width="600" height = "420"
+  src="https://www.youtube.com/embed/tgbNymZ7vqY">
+  </iframe>
+</div>
+</p>
 
 ```{r setup, include=FALSE}
 rm(list = ls())
@@ -112,9 +118,13 @@ Finalmente, observando el árbol filogenético se comprueban varias de las relac
 
 # Referencias
 Brian DA, Baric RS. Coronavirus genome structure and replication. Curr Top Microbiol Immunol. 2005;287:1-30. doi: 10.1007/3-540-26765-4_1. PMID: 15609507; PMCID: PMC7120446. 
+
 Malik YA. Properties of Coronavirus and SARS-CoV-2. Malays J Pathol. 2020 Apr;42(1):3-11. PMID: 32342926.
+
 Li, C., Yang, Y., & Ren, L. (2020). Genetic evolution analysis of 2019 novel coronavirus and coronavirus from other species. Infection, genetics and evolution : journal of molecular epidemiology and evolutionary genetics in infectious diseases, 82, 104285. https://doi.org/10.1016/j.meegid.2020.104285 
+
 Kirtipal, N., Bharadwaj, S., & Kang, S. G. (2020). From SARS to SARS-CoV-2, insights on structure, pathogenicity and immunity aspects of pandemic human coronaviruses. Infection, genetics and evolution : journal of molecular epidemiology and evolutionary genetics in infectious diseases, 85, 104502. https://doi.org/10.1016/j.meegid.2020.104502
+
 Mousavizadeh, L., & Ghasemi, S. (2021). Genotype and phenotype of COVID-19: Their roles in pathogenesis. Journal of microbiology, immunology, and infection = Wei mian yu gan ran za zhi, 54(2), 159–163. https://doi.org/10.1016/j.jmii.2020.03.022 
 
 # Librerias empleadas
