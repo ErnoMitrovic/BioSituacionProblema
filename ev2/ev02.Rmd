@@ -5,6 +5,9 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
+# Video parte 1
+![Video Evidencia 2](https://youtu.be/q_kW9PCZdMA){width = 70%}
+
 ```{r setup, include=FALSE}
 rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
@@ -26,10 +29,11 @@ library(ggmsa)
 
 Primero recopilaré los códigos de acceso para las especies a estudiar. El código de acceso son los Locus en NCBI. 
 ```{r locus}
-speciesLocus <- c(humano = "KU291448", murcielago = "EF065511", pato = "JF705860", faisan = "MK423876", 
+speciesLocus <- c(humano = "MT093631", murcielago = "MN996532", pangolin = "MT084071", 
+                  pato = "JF705860", faisan = "MK423876", 
                   erizo = "MK907287", civeta = "AY572038", civeta_palmeras = "AY613948",
-                  paguma_larvata = "AY515512", rhinolophus = "KY417150", perro = "ON248600",
-                  pangolin = "MW532698", porcino = "KX981440", gorrión = "NC_016992",
+                  paguma_larvata = "AY515512", rhinolophus = "KY417150", perro = "ON248600", 
+                  porcino = "KX981440", gorrión = "NC_016992",
                   beaudette = "AJ311317", bovino = "NC_003045", murino = "NC_001846",
                   gorila = "OL752443", gastrointeritis = "KX499468", mareca = "NC_016995",
                   ojo_blanco = "JQ065044")
@@ -65,10 +69,10 @@ B <- list(
   t = b[seq(from = 4, to = length(b), by = 4)]
 )
 
-par(mar = c(5,4,4,8), xpd = T)
+par(mar = c(5,4,4,10), xpd = T)
 colors = colormap(nshades = 20)
 barplot(matrix(c(B$a, B$c, B$g, B$t), nrow = 20), beside = TRUE, col = colors, las =2, names.arg = c("A", "C", "G", "T"), ylab = "Frecuencia", xlab = "Bases", main = "Bases nitrogenadas de secuencias")
-legend("topright",legend = names(speciesLocus) , col = colors,  pt.cex = 1, pch = 15 , cex = 1, inset = c(-0.3,-0.2))
+legend("topright",legend = names(speciesLocus) , col = colors,  pt.cex = 1, pch = 15 , cex = 1, inset = c(-0.4,-0.2))
 rm(B, bases, b, colors, el)
 ```
 
@@ -90,12 +94,39 @@ specs.tree <- ladderize(specs.tree)
 plot(specs.tree, cex = 0.6)
 
 
-ggmsa(not_aligned, 850, 900, color = "Chemistry_AA")
+ggmsa(not_aligned, 850, 900, color = "Chemistry_NT")
 
 plot.specs <- ggtree(specs.tree ) + geom_tiplab()
 
 data <- tidy_msa(not_aligned, 164, 213)
 plot.specs + geom_facet(geom = geom_msa, data = data,  panel = 'msa', color = "Chemistry_AA") +
     xlim_tree(1)
+```
+# Análisis de gráficas
+
+En la gráfica de bases nitrogenadas se puede observar mucha variación entre los virus de distintas especies. Esto tiene sentido porque son secuencias de virus distinos, pero que comparten algún legado de alineamiento que se explorará más adelante. Además de esto, se puede confirmar que las secuencias de los murcielagos, los humanos y los pangolines tienen la cercanía más próxima con respecto al número de bases nitrogenadas. El coronavirus analizado en el humano es una de las variantes de SARS-COV-2. Cabe resaltar que todas las secuencias utilizads son de diferentes años. 
+
+Revisando ahora la representación jerárquica alineada, en la tabla se puede confirmar que el genoma del virus del humano (KU291448), los virus de murciélago, siendo el más representativo (EF065511), y el virus del pangolín (MW532698) tienen una buena correlación (Li et al., 2020). Los virus que más se parecen son los centrales, principalmente la relación de las variantes de las civetas (Kirtipal et al., 2020). Por otra parte, hay muchos virus que no tienen relación entre ellos, incluso se puede concluir que hay menos virus que se relacionan entre sí que los que conservan una relación entre ellos.
+
+Finalmente, observando el árbol filogenético se comprueban varias de las relaciones antes mencionadas con la tabla. Se tiene la certeza de que hubo zoonosis que derivan desde los murciélagos como hospedador primario, sin embargo, no se tiene todavía la certeza de un nexo directo entre el virus del pangolín con el virus del SARS-COV-2. (Mousavizadeh & Ghasemi, 2020)
+
+# Referencias
+Brian DA, Baric RS. Coronavirus genome structure and replication. Curr Top Microbiol Immunol. 2005;287:1-30. doi: 10.1007/3-540-26765-4_1. PMID: 15609507; PMCID: PMC7120446. 
+Malik YA. Properties of Coronavirus and SARS-CoV-2. Malays J Pathol. 2020 Apr;42(1):3-11. PMID: 32342926.
+Li, C., Yang, Y., & Ren, L. (2020). Genetic evolution analysis of 2019 novel coronavirus and coronavirus from other species. Infection, genetics and evolution : journal of molecular epidemiology and evolutionary genetics in infectious diseases, 82, 104285. https://doi.org/10.1016/j.meegid.2020.104285 
+Kirtipal, N., Bharadwaj, S., & Kang, S. G. (2020). From SARS to SARS-CoV-2, insights on structure, pathogenicity and immunity aspects of pandemic human coronaviruses. Infection, genetics and evolution : journal of molecular epidemiology and evolutionary genetics in infectious diseases, 85, 104502. https://doi.org/10.1016/j.meegid.2020.104502
+Mousavizadeh, L., & Ghasemi, S. (2021). Genotype and phenotype of COVID-19: Their roles in pathogenesis. Journal of microbiology, immunology, and infection = Wei mian yu gan ran za zhi, 54(2), 159–163. https://doi.org/10.1016/j.jmii.2020.03.022 
+
+# Librerias empleadas
+```{r libEmp}
+citation("Biostrings")
+citation("seqinr")
+citation("adegenet")
+citation("ape")
+citation("ggtree")
+citation("DECIPHER")
+citation("viridis")
+citation("colormap")
+citation("ggmsa")
 ```
 
