@@ -9,7 +9,7 @@ output: html_document
 <div>
   <p style = 'text-align:center;'>
   <iframe width="600" height = "420"
-  src="https://www.youtube.com/embed/tgbNymZ7vqY">
+  src="https://youtu.be/q_kW9PCZdMA">
   </iframe>
 </div>
 </p>
