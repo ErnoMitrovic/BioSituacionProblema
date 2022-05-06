@@ -76,12 +76,12 @@ En la siguiente sección se agrega el análisis jerárquico
 
 ```{r jerarquico}
 not_aligned <- OrientNucleotides(not_aligned)
-seq.aligned <- AlignSeqs(not_aligned, processors = NULL)
+seq_aligned <- AlignSeqs(not_aligned, processors = NULL)
 # Resultado del alineamiento
 BrowseSeqs(seq_aligned, highlight = 0)
-writeXStringSet(seq.aligned, file="aligned_seq.fasta")
-seq.aligned <- read.alignment("virus_seq_align.fasta", format = "fasta")
-matriz_distancia <- dist.alignment(virus_aligned, matrix = "similarity")
+writeXStringSet(seq_aligned, file="aligned_seq.fasta")
+seq_aligned <- read.alignment("aligned_seq.fasta", format = "fasta")
+matriz_distancia <- dist.alignment(seq_aligned, matrix = "similarity")
 temp <- as.data.frame(as.matrix(matriz_distancia))
 table.paint(temp, cleg=0, clabel.row=.5, clabel.col=.5) + scale_color_viridis()
 
@@ -90,7 +90,7 @@ specs.tree <- ladderize(specs.tree)
 plot(specs.tree, cex = 0.6)
 
 
-ggmsa(virus_seq_not_align, 850, 900, color = "Chemistry_AA")
+ggmsa(not_aligned, 850, 900, color = "Chemistry_AA")
 
 plot.specs <- ggtree(specs.tree ) + geom_tiplab()
 
